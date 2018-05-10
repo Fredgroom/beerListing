@@ -1,2 +1,30 @@
 @import 'reset';
 
+header {
+    display: grid;
+    grid-template-columns: 3fr;
+    grid-template-rows: 3fr;
+
+   height: 200px;
+   background: url('../images/logo.png') top center no-repeat black ; 
+   background-size: 150px; 
+   
+   nav {
+        list-style: none;
+        color: white;
+        display: grid;
+        grid-template-columns: 3fr 3fr;
+
+        .blueText {
+            color: blue;
+        }
+   }
+}
+
+li {
+    display: inline;
+}
+
+// .beer {
+ 
+// }
