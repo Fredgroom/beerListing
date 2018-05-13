@@ -1,77 +1,174 @@
 import axios from 'axios';
+import Beer from './functions';
+
 
 
     //add event listener to buttons
-    // element.addEventListener("click", function(){ alert("Hello World!"); });
-
+    // document.querySelector('#beerList').addEventListener
+    // document.querySelectorAll('button').forEach(button => {
+    //     button.addEventListener('click', function(event) {
+    //       const page = event.target.id;
+    //     })
+    //   });
+    
         //Call API-axios
-        axios.get('https://api.punkapi.com/v2/beers')
-        .then(function (response) {
-                const beer = response.data;
-                const singleBeer = response.data[0];
-                const img = response.image_url;
-                const name = response.name;
-                const description = response.description;
-                const abv = response.abv;
-                const ibu = response.ibu;
-                const pH = response.ph;
-                console.log(singleBeer);
-          
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
 
+        .then(response => {
+            const beers = response.data;
 
-            //define terms to manage the data
-            // class Beer {
-            //     constructor(img_url, name, description, abv, ibu, pH) {
-            //         const beer = response.data;
-            //         const singleBeer = response.data[0];
-            //         const img = singleBeer.image_url;
-            //         const name = singleBeer.name;
-            //         const description = singleBeer.description;
-            //         const abv = singleBeer.abv;
-            //         const ibu = singleBeer.ibu;
-            //         const pH = singleBeer.ph;
-            //     }
-            //             let beer = document.createElement('div');
-            //                 beer.setAttribute('class','beer');
-
-            //             let imgElement = document.createElement('img');
-            //                 imgElement.setAttribute('src', img);
-
-            //             let nameElement = document.createElement('h1');
-            //                 nameElement.innerText = name;
-
-            //             let descriptionElement = document.createElement('p');
-            //                 descriptionElement.innerText = description;
-                        
-            //             let abvElement = document.createElement('div');
-            //                 abvElement.setAttribute('class','data')
-            //                 abvElement.innerText = abv;
-
-            //             let ibuElement = document.createElement('div');
-            //                 ibuElement.setAttribute('class','data')
-            //                 ibuElement.innerText = ibu;
-                        
-            //             let phElement = document.createElement('div');
-            //                 phElement.setAttribute('class','data pH')
-            //                 phElement.innerText = pH;
-            //             }
+            for(let singleBeer of beers) {
                 
+                let beer = createClassInstances(singleBeer);
+                
+                beer.appendToPage();
+            }
 
-            // const container = document.getElementById('main');
+            const singleBeer = response.data[0];
+      
+    })
 
-            // beer.appendChild(imgElement());
-            // beer.appendChild(nameElement());
-            // beer.appendChild(descriptionElement());
-            // beer.appendChild(abvElement());
-            // beer.appendChild(ibuElement());
-            // beer.appendChild(phElement());
+        console.log()
 
-            // container.appendChild(beer());
+        //create class instances
+        function createClassInstances(singleBeer) {
+            const img = singleBeer.image_url;
+            const name = singleBeer.name;
+            const description = singleBeer.description;
+            const abv = singleBeer.abv;
+            const ibu = singleBeer.ibu;
+            const pH = singleBeer.pH;
+
+            console.log(Beer);
+
+            let beer = new Beer(img, name, description, abv, ibu, pH);
+            return beer;
+            }
             
-
         
-     
+    //get a random beer on QuickFind
+
+    var element = document.getElementById("quickFind");
+    element.addEventListener('click', function() {
+            //clear previous html div
+            document.getElementById('main').innerHTML = "";
+            //get random beer from JSON
+            axios.get('https://api.punkapi.com/v2/beers/random')
+                .then(response => {
+                //put response data in const variable
+                const randomBeer = response.data[0];
+
+                let beer = createClassInstances(randomBeer);
+                
+                beer.appendToPage();
+                })       
+            });
+
+    var element = document.getElementById("1");
+    element.addEventListener('click', function() {
+            console.log(1);
+            //clear previous html div
+            document.getElementById('main').innerHTML = "";
+            //get random beer from JSON
+            axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
+                .then(response => {
+                //put response data in const variable
+                const beers = response.data;
+
+            for(let singleBeer of beers) {
+                
+                let beer = createClassInstances(singleBeer);
+                
+                beer.appendToPage();
+            }
+
+            const singleBeer = response.data[0];
+      
+            });
+
+    var element = document.getElementById("2");
+    element.addEventListener('click', function() {
+            console.log(2);
+            //clear previous html div
+            document.getElementById('main').innerHTML = "";
+            //get random beer from JSON
+            axios.get('https://api.punkapi.com/v2/beers?page=2&per_page=6')
+                .then(response => {
+                //put response data in const variable
+                const beers = response.data;
+
+            for(let singleBeer of beers) {
+                
+                let beer = createClassInstances(singleBeer);
+                
+                beer.appendToPage();
+            }
+
+            const singleBeer = response.data[0];
+      
+            });
+        })
+        var element = document.getElementById("3");
+    element.addEventListener('click', function() {
+            //clear previous html div
+            document.getElementById('main').innerHTML = "";
+            //get random beer from JSON
+            axios.get('https://api.punkapi.com/v2/beers?page=3&per_page=6')
+                .then(response => {
+                //put response data in const variable
+                const beers = response.data;
+
+            for(let singleBeer of beers) {
+                
+                let beer = createClassInstances(singleBeer);
+                
+                beer.appendToPage();
+            }
+
+            const singleBeer = response.data[0];
+      
+            });
+        })
+        var element = document.getElementById("4");
+    element.addEventListener('click', function() {
+            //clear previous html div
+            document.getElementById('main').innerHTML = "";
+            //get random beer from JSON
+            axios.get('https://api.punkapi.com/v2/beers?page=4&per_page=6')
+                .then(response => {
+                //put response data in const variable
+                const beers = response.data;
+
+            for(let singleBeer of beers) {
+                
+                let beer = createClassInstances(singleBeer);
+                
+                beer.appendToPage();
+            }
+
+            const singleBeer = response.data[0];
+      
+            });
+        })
+        var element = document.getElementById("5");
+    element.addEventListener('click', function() {
+            //clear previous html div
+            document.getElementById('main').innerHTML = "";
+            //get random beer from JSON
+            axios.get('https://api.punkapi.com/v2/beers?page=5&per_page=6')
+                .then(response => {
+                //put response data in const variable
+                const beers = response.data;
+
+            for(let singleBeer of beers) {
+                
+                let beer = createClassInstances(singleBeer);
+                
+                beer.appendToPage();
+            }
+
+            const singleBeer = response.data[0];
+      
+            });
+        })
+    })
