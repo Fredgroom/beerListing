@@ -15,20 +15,19 @@ import Beer from './functions';
         axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
 
         .then(response => {
+            //define data within the console
             const beers = response.data;
-
+            //iterate through array and append to screen
             for(let singleBeer of beers) {
-                
+                //create class
                 let beer = createClassInstances(singleBeer);
-                
+                //create html and append to page
                 beer.appendToPage();
             }
-
+            phColor();
             const singleBeer = response.data[0];
-      
     })
 
-        console.log()
 
         //create class instances
         function createClassInstances(singleBeer) {
@@ -37,11 +36,11 @@ import Beer from './functions';
             const description = singleBeer.description;
             const abv = singleBeer.abv;
             const ibu = singleBeer.ibu;
-            const pH = singleBeer.pH;
+            const ph = singleBeer.ph;
 
             console.log(Beer);
 
-            let beer = new Beer(img, name, description, abv, ibu, pH);
+            let beer = new Beer(img, name, description, abv, ibu, ph);
             return beer;
             }
             
@@ -60,9 +59,11 @@ import Beer from './functions';
 
                 let beer = createClassInstances(randomBeer);
                 
-                beer.appendToPage();
-                })       
+                beer.appendRandomToPage();                
+                phColor();
+                })
             });
+          
 
     var element = document.getElementById("1");
     element.addEventListener('click', function() {
@@ -81,11 +82,11 @@ import Beer from './functions';
                 
                 beer.appendToPage();
             }
-
+            phColor();
             const singleBeer = response.data[0];
       
             });
-
+        })
     var element = document.getElementById("2");
     element.addEventListener('click', function() {
             console.log(2);
@@ -103,7 +104,7 @@ import Beer from './functions';
                 
                 beer.appendToPage();
             }
-
+            phColor();
             const singleBeer = response.data[0];
       
             });
@@ -124,7 +125,7 @@ import Beer from './functions';
                 
                 beer.appendToPage();
             }
-
+            phColor();
             const singleBeer = response.data[0];
       
             });
@@ -145,7 +146,7 @@ import Beer from './functions';
                 
                 beer.appendToPage();
             }
-
+            phColor();
             const singleBeer = response.data[0];
       
             });
@@ -166,9 +167,26 @@ import Beer from './functions';
                 
                 beer.appendToPage();
             }
-
+            phColor();
             const singleBeer = response.data[0];
       
             });
         })
-    })
+   
+    
+        function phColor() {
+            console.log('hi')
+            let elements = document.getElementsByClassName('ph');
+            for (var i = 0; i < elements.length; i++) {
+                console.log(elements[i]);
+                if (elements[i].innerText < 4.6) { 
+                    elements[i].style.backgroundColor="#FBBA00"
+            } else if (4.6 <= elements[i].innerText <= 5.4) {
+                    elements[i].style.backgroundColor="#DF932C"
+            } else if (5.4 <= elements[i].innerText <= 5.8) {
+                elements[i].style.backgroundColor="#D96A38"
+            } else {
+                elements[i].style.backgroundColor="#9E2C1D"
+            }
+        }
+    }
