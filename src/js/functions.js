@@ -11,6 +11,7 @@ export default class Beer {
             this.ph = ph;
         }
 
+
         appendToPage() {
              const container = document.getElementById('main');
             let beerTempor = document.createElement('div');
