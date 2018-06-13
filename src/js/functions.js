@@ -54,7 +54,7 @@ export default class Beer {
         appendRandomToPage() {
             const container = document.getElementById('main');
             let beerTempor = document.createElement('div');
-                beerTempor.setAttribute('class','beer');
+                beerTempor.setAttribute('class','randomBeer');
 
             let imgElement = document.createElement('img');
                 imgElement.setAttribute('src',this.img_url);

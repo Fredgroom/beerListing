@@ -11,7 +11,7 @@ export default class Random {
     }
 
     appendRandomToPage() {
-         const container = document.getElementById('main');
+         let container = document.getElementById('main');
         let beerTempor = document.createElement('div');
             beerTempor.setAttribute('class','Random');
 
@@ -36,6 +36,10 @@ export default class Random {
             phElement.setAttribute('class','data pH')
             phElement.innerText = this.pH;
 
+        let ingredientsButton = document.createElement('button');
+            ingredientsButton.setAttribute('class','ingredients')
+            ingredientsButton.innerText = 'Ingredients';
+
         console.log(beerTempor);
         beerTempor.appendChild(imgElement);
         beerTempor.appendChild(nameElement);
@@ -43,13 +47,11 @@ export default class Random {
         beerTempor.appendChild(abvElement);
         beerTempor.appendChild(ibuElement);
         beerTempor.appendChild(phElement);
-
+        // beerTempor.appendChild(ingredientsButton);
         container.appendChild(beerTempor);
         console.log(container);
     }
 };
-
-
 
 
 

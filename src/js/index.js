@@ -12,9 +12,43 @@ import Beer from './functions';
     //   });
     
         //Call API-axios
-        axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
+        //change the page depends on API url -- pagination
+function changePage(page) {
 
+    document.getElementById('main').innerHTML = "";
+    
+    axios.get(`https://api.punkapi.com/v2/beers?page=${page}&per_page=6`)
+
+        //done() = .then(function(response)){} =
         .then(response => {
+
+            let beerData = response.data; //console.log(beerData);
+
+            for (let value of beerData) {
+
+                if (beerData.length) {
+
+                    let beer = createClassInstances(beerData);
+
+                    beer.addToPage();
+                }
+            }
+        })
+        //fail()
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
+
+changePage(1); //for opening page
+
+        var element = document.getElementById('')
+
+        function onLoad() {
+            document.getElementById('main').innerHTML = "";
+
+            axios.get('https://api.punkapi.com/v2/beers?page=1&per_page=6')
+            .then(response => {
             //define data within the console
             const beers = response.data;
             //iterate through array and append to screen
@@ -26,9 +60,10 @@ import Beer from './functions';
             }
             phColor();
             const singleBeer = response.data[0];
-    })
-
-
+        
+    });
+        };
+        onLoad();
         //create class instances
         function createClassInstances(singleBeer) {
             const img = singleBeer.image_url;
@@ -109,7 +144,7 @@ import Beer from './functions';
       
             });
         })
-        var element = document.getElementById("3");
+    var element = document.getElementById("3");
     element.addEventListener('click', function() {
             //clear previous html div
             document.getElementById('main').innerHTML = "";
@@ -130,7 +165,7 @@ import Beer from './functions';
       
             });
         })
-        var element = document.getElementById("4");
+    var element = document.getElementById("4");
     element.addEventListener('click', function() {
             //clear previous html div
             document.getElementById('main').innerHTML = "";
@@ -151,7 +186,7 @@ import Beer from './functions';
       
             });
         })
-        var element = document.getElementById("5");
+    var element = document.getElementById("5");
     element.addEventListener('click', function() {
             //clear previous html div
             document.getElementById('main').innerHTML = "";
@@ -172,10 +207,8 @@ import Beer from './functions';
       
             });
         })
-   
-    
+
         function phColor() {
-            console.log('hi')
             let elements = document.getElementsByClassName('ph');
             for (var i = 0; i < elements.length; i++) {
                 console.log(elements[i]);
@@ -189,4 +222,9 @@ import Beer from './functions';
                 elements[i].style.backgroundColor="#9E2C1D"
             }
         }
-    }
+        
+        var element = document.getElementById("home");
+    element.addEventListener('click', function() {
+            onLoad();
+    });
+}

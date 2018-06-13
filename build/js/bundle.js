@@ -1697,7 +1697,7 @@ var Beer = function () {
         value: function appendRandomToPage() {
             var container = document.getElementById('main');
             var beerTempor = document.createElement('div');
-            beerTempor.setAttribute('class', 'beer');
+            beerTempor.setAttribute('class', 'randomBeer');
 
             var imgElement = document.createElement('img');
             imgElement.setAttribute('src', this.img_url);
@@ -1762,42 +1762,99 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //   });
 
 //Call API-axios
-_axios2.default.get('https://api.punkapi.com/v2/beers?page=1&per_page=6').then(function (response) {
-    //define data within the console
-    var beers = response.data;
-    //iterate through array and append to screen
-    var _iteratorNormalCompletion = true;
-    var _didIteratorError = false;
-    var _iteratorError = undefined;
+//change the page depends on API url -- pagination
+function changePage(page) {
 
-    try {
-        for (var _iterator = beers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var _singleBeer = _step.value;
+    document.getElementById('main').innerHTML = "";
 
-            //create class
-            var beer = createClassInstances(_singleBeer);
-            //create html and append to page
-            beer.appendToPage();
-        }
-    } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-    } finally {
+    _axios2.default.get('https://api.punkapi.com/v2/beers?page=' + page + '&per_page=6')
+
+    //done() = .then(function(response)){} =
+    .then(function (response) {
+
+        var beerData = response.data; //console.log(beerData);
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
         try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-                _iterator.return();
+            for (var _iterator = beerData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var value = _step.value;
+
+
+                if (beerData.length) {
+
+                    var beer = createClassInstances(beerData);
+
+                    beer.addToPage();
+                }
             }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
         } finally {
-            if (_didIteratorError) {
-                throw _iteratorError;
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
             }
         }
-    }
+    })
+    //fail()
+    .catch(function (error) {
+        console.log(error);
+    });
+}
 
-    phColor();
-    var singleBeer = response.data[0];
-});
+changePage(1); //for opening page
 
+var element = document.getElementById('');
+
+function onLoad() {
+    document.getElementById('main').innerHTML = "";
+
+    _axios2.default.get('https://api.punkapi.com/v2/beers?page=1&per_page=6').then(function (response) {
+        //define data within the console
+        var beers = response.data;
+        //iterate through array and append to screen
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+            for (var _iterator2 = beers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var _singleBeer = _step2.value;
+
+                //create class
+                var beer = createClassInstances(_singleBeer);
+                //create html and append to page
+                beer.appendToPage();
+            }
+        } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                    _iterator2.return();
+                }
+            } finally {
+                if (_didIteratorError2) {
+                    throw _iteratorError2;
+                }
+            }
+        }
+
+        phColor();
+        var singleBeer = response.data[0];
+    });
+};
+onLoad();
 //create class instances
 function createClassInstances(singleBeer) {
     var img = singleBeer.image_url;
@@ -1841,58 +1898,16 @@ element.addEventListener('click', function () {
         //put response data in const variable
         var beers = response.data;
 
-        var _iteratorNormalCompletion2 = true;
-        var _didIteratorError2 = false;
-        var _iteratorError2 = undefined;
-
-        try {
-            for (var _iterator2 = beers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                var _singleBeer2 = _step2.value;
-
-
-                var beer = createClassInstances(_singleBeer2);
-
-                beer.appendToPage();
-            }
-        } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                    _iterator2.return();
-                }
-            } finally {
-                if (_didIteratorError2) {
-                    throw _iteratorError2;
-                }
-            }
-        }
-
-        phColor();
-        var singleBeer = response.data[0];
-    });
-});
-var element = document.getElementById("2");
-element.addEventListener('click', function () {
-    console.log(2);
-    //clear previous html div
-    document.getElementById('main').innerHTML = "";
-    //get random beer from JSON
-    _axios2.default.get('https://api.punkapi.com/v2/beers?page=2&per_page=6').then(function (response) {
-        //put response data in const variable
-        var beers = response.data;
-
         var _iteratorNormalCompletion3 = true;
         var _didIteratorError3 = false;
         var _iteratorError3 = undefined;
 
         try {
             for (var _iterator3 = beers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                var _singleBeer3 = _step3.value;
+                var _singleBeer2 = _step3.value;
 
 
-                var beer = createClassInstances(_singleBeer3);
+                var beer = createClassInstances(_singleBeer2);
 
                 beer.appendToPage();
             }
@@ -1915,12 +1930,13 @@ element.addEventListener('click', function () {
         var singleBeer = response.data[0];
     });
 });
-var element = document.getElementById("3");
+var element = document.getElementById("2");
 element.addEventListener('click', function () {
+    console.log(2);
     //clear previous html div
     document.getElementById('main').innerHTML = "";
     //get random beer from JSON
-    _axios2.default.get('https://api.punkapi.com/v2/beers?page=3&per_page=6').then(function (response) {
+    _axios2.default.get('https://api.punkapi.com/v2/beers?page=2&per_page=6').then(function (response) {
         //put response data in const variable
         var beers = response.data;
 
@@ -1930,10 +1946,10 @@ element.addEventListener('click', function () {
 
         try {
             for (var _iterator4 = beers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                var _singleBeer4 = _step4.value;
+                var _singleBeer3 = _step4.value;
 
 
-                var beer = createClassInstances(_singleBeer4);
+                var beer = createClassInstances(_singleBeer3);
 
                 beer.appendToPage();
             }
@@ -1956,12 +1972,12 @@ element.addEventListener('click', function () {
         var singleBeer = response.data[0];
     });
 });
-var element = document.getElementById("4");
+var element = document.getElementById("3");
 element.addEventListener('click', function () {
     //clear previous html div
     document.getElementById('main').innerHTML = "";
     //get random beer from JSON
-    _axios2.default.get('https://api.punkapi.com/v2/beers?page=4&per_page=6').then(function (response) {
+    _axios2.default.get('https://api.punkapi.com/v2/beers?page=3&per_page=6').then(function (response) {
         //put response data in const variable
         var beers = response.data;
 
@@ -1971,10 +1987,10 @@ element.addEventListener('click', function () {
 
         try {
             for (var _iterator5 = beers[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                var _singleBeer5 = _step5.value;
+                var _singleBeer4 = _step5.value;
 
 
-                var beer = createClassInstances(_singleBeer5);
+                var beer = createClassInstances(_singleBeer4);
 
                 beer.appendToPage();
             }
@@ -1997,12 +2013,12 @@ element.addEventListener('click', function () {
         var singleBeer = response.data[0];
     });
 });
-var element = document.getElementById("5");
+var element = document.getElementById("4");
 element.addEventListener('click', function () {
     //clear previous html div
     document.getElementById('main').innerHTML = "";
     //get random beer from JSON
-    _axios2.default.get('https://api.punkapi.com/v2/beers?page=5&per_page=6').then(function (response) {
+    _axios2.default.get('https://api.punkapi.com/v2/beers?page=4&per_page=6').then(function (response) {
         //put response data in const variable
         var beers = response.data;
 
@@ -2012,10 +2028,10 @@ element.addEventListener('click', function () {
 
         try {
             for (var _iterator6 = beers[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                var _singleBeer6 = _step6.value;
+                var _singleBeer5 = _step6.value;
 
 
-                var beer = createClassInstances(_singleBeer6);
+                var beer = createClassInstances(_singleBeer5);
 
                 beer.appendToPage();
             }
@@ -2038,9 +2054,49 @@ element.addEventListener('click', function () {
         var singleBeer = response.data[0];
     });
 });
+var element = document.getElementById("5");
+element.addEventListener('click', function () {
+    //clear previous html div
+    document.getElementById('main').innerHTML = "";
+    //get random beer from JSON
+    _axios2.default.get('https://api.punkapi.com/v2/beers?page=5&per_page=6').then(function (response) {
+        //put response data in const variable
+        var beers = response.data;
+
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
+
+        try {
+            for (var _iterator7 = beers[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                var _singleBeer6 = _step7.value;
+
+
+                var beer = createClassInstances(_singleBeer6);
+
+                beer.appendToPage();
+            }
+        } catch (err) {
+            _didIteratorError7 = true;
+            _iteratorError7 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                    _iterator7.return();
+                }
+            } finally {
+                if (_didIteratorError7) {
+                    throw _iteratorError7;
+                }
+            }
+        }
+
+        phColor();
+        var singleBeer = response.data[0];
+    });
+});
 
 function phColor() {
-    console.log('hi');
     var elements = document.getElementsByClassName('ph');
     for (var i = 0; i < elements.length; i++) {
         console.log(elements[i]);
@@ -2054,6 +2110,11 @@ function phColor() {
             elements[i].style.backgroundColor = "#9E2C1D";
         }
     }
+
+    var element = document.getElementById("home");
+    element.addEventListener('click', function () {
+        onLoad();
+    });
 }
 
 },{"./functions":28,"axios":1}]},{},[29]);
